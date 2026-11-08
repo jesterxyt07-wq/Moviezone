@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>MovieZone Admin Panel</title>
+<style>
+body{background:#0c1019;color:white;font-family:Arial;padding:20px}
+.box{max-width:500px;margin:30px auto;background:#1a2232;padding:22px;border-radius:15px}
+h1{text-align:center;color:#a58aff}
+input,select{width:100%;padding:13px;margin:9px 0;box-sizing:border-box;border:0;border-radius:8px}
+button{width:100%;padding:14px;background:#7655e8;color:white;border:0;border-radius:8px;font-weight:bold;margin-top:10px}
+p{color:#aaa;font-size:13px}
+</style>
+</head>
+<body>
+<div class="box">
+<h1>🎬 MovieZone Admin</h1>
+<h3>Add New Movie</h3>
+
+<form id="movieForm">
+<input id="name" placeholder="Movie Name" required>
+
+<select id="category">
+<option>Hollywood</option>
+<option>Bollywood</option>
+<option>Punjabi</option>
+<option>South Indian</option>
+<option>Korean</option>
+<option>Animated</option>
+</select>
+
+<input id="year" type="number" placeholder="Release Year" required>
+<input id="language" placeholder="Movie Language" required>
+<input id="poster" type="url" placeholder="Poster Image URL">
+<input id="link" type="url" placeholder="Authorized Watch/Download URL" required>
+
+<button type="submit">ADD MOVIE</button>
+</form>
+
+<p id="message"></p>
+</div>
+
+<script>
+document.getElementById("movieForm").onsubmit=function(e){
+e.preventDefault();
+
+let movies=JSON.parse(localStorage.getItem("moviezone_movies")||"[]");
+
+movies.push({
+name:
