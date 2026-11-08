@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>MovieZone - Your World of Movies</title>
+<style>
+*{box-sizing:border-box}
+body{margin:0;background:#0c1019;color:white;font-family:Arial}
+header{background:#171b29;padding:20px;text-align:center}
+.logo{font-size:30px;font-weight:bold;color:#a58aff}
+.hero{text-align:center;padding:40px 15px}
+h1{font-size:38px}
+p{color:#aaa}
+input{padding:14px;width:90%;max-width:450px;border-radius:10px;border:0}
+.categories{display:flex;flex-wrap:wrap;justify-content:center;gap:10px;padding:20px}
+button{background:#28213f;color:white;border:1px solid #7662e8;padding:12px 17px;border-radius:20px}
+button.active{background:#7655e8}
+.grid{display:grid;grid-template-columns:repeat(2,1fr);gap:15px;padding:15px}
+.card{background:#1a2232;border-radius:12px;overflow:hidden;text-align:center;padding-bottom:15px}
+.poster{height:130px;display:grid;place-items:center;font-size:45px;background:linear-gradient(135deg,#40316c,#23536b)}
+.card h3{font-size:16px}
+.card a{display:inline-block;background:#7655e8;color:white;padding:10px;border-radius:8px;text-decoration:none;font-size:12px}
+footer{text-align:center;padding:30px;color:#888}
+@media(min-width:700px){.grid{grid-template-columns:repeat(4,1fr)}}
+</style>
+</head>
+<body>
+
+<header>
+<div class="logo">🎬 MOVIEZONE</div>
+<p>Your World of Movies</p>
+</header>
+
+<section class="hero">
+<h1>Find Your Movies</h1>
+<p>Hollywood • Bollywood • Punjabi • South Indian</p>
+<input id="search" placeholder="Search your movie..." oninput="showMovies()">
+</section>
+
+<div class="categories" id="categories"></div>
+<div class="grid" id="movies"></div>
+
+<footer>
+<p>© 2026 MovieZone</p>
+<p>Official movie viewing and authorized download links only.</p>
+</footer>
+
+<script>
+const categories=["All","Hollywood","Bollywood","Punjabi","South Indian","Korean","Animated"];
+
+const data=[
+["The Jungle Book","Hollywood","🐻",1967],
+["Avatar","Hollywood","🌌",2009],
+["Swades","Bollywood","🇮🇳",2004],
+["Taare Zameen Par","Bollywood","🎨",2007],
+["Carry On Jatta","Punjabi","😂",2012],
+["Chaar Sahibzaade","Punjabi","🛡️",2014],
+["Eega","South Indian","🪰",2012],
+["Super Deluxe","South Indian","🎭",2019],
+["Parasite","Korean","🏠",2019],
+["Your Name","Animated","🌠",2016]
+];
+
+let selected="All";
+
+function makeCategories(){
+document.getElementById("categories").innerHTML=
+categories.map(c=>`<button class="${selected===c?'active':''}" onclick="selected='${c}';makeCategories();showMovies()">${c}</button>`).join("");
+}
+
+function showMovies(){
+let q=document.getElementById("search").value.toLowerCase();
+let list=data.filter(m=>(selected==="All"||m[1]===selected)&&m[0].toLowerCase().includes(q));
+
+document.getElementById("movies").innerHTML=list.map(m=>`
+<div class="card">
+<div class="poster">${m[2]}</div>
+<h3>${m[0]}</h3>
+<p>${m[1]} • ${m[3]}</p>
+<a target="_blank" href="https://www.google.com/search?q=${encodeURIComponent(m[0]+' official watch India')}">Official Watch Options</a>
+</div>`).join("");
+}
+
+makeCategories();
+showMovies();
+</script>
+
+</body>
+</html>
